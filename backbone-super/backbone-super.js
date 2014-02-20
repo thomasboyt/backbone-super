@@ -1,7 +1,16 @@
 // This is a plugin, constructed from parts of Backbone.js and John Resig's inheritance script.
 // (See http://backbonejs.org, http://ejohn.org/blog/simple-javascript-inheritance/)
 // No credit goes to me as I did absolutely nothing except patch these two together.
-(function(Backbone) {
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['backbone'], factory);
+    } else {
+        // Browser globals
+        root.amdWeb = factory(root.Backbone);
+    }
+}(this, function (Backbone) {
 	Backbone.Model.extend = Backbone.Collection.extend = Backbone.Router.extend = Backbone.View.extend = function(protoProps, classProps) {
 		var child = inherits(this, protoProps, classProps);
 		child.extend = this.extend;
@@ -80,4 +89,4 @@
 
 		return child;
 	};
-})(Backbone);
+}));
